@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form } from "react-bulma-components";
 
-const { Input, Field, Control, Label } = Form;
+const { Input, Field, Control, Select } = Form;
 
 export default function SearchBar({ onSearch }) {
   const [query, setQuery] = useState("");
@@ -41,30 +41,43 @@ export default function SearchBar({ onSearch }) {
           </button>
         </Control>
       </Field>
-      <Field align="center" kind="group">
-        <select value={mealType} onChange={(e) => setMealType(e.target.value)}>
+      <Field align="left" kind="group">
+        <Select
+          size="small"
+          value={mealType}
+          onChange={(e) => setMealType(e.target.value)}
+        >
           <option value="">Meal Type</option>
           <option value="main course">Main Course</option>
           <option value="dessert">Dessert</option>
-        </select>
-        <select value={cuisine} onChange={(e) => setCuisine(e.target.value)}>
-          <option value="">Select Cuisine</option>
+        </Select>
+        <Select
+          size="small"
+          value={cuisine}
+          onChange={(e) => setCuisine(e.target.value)}
+        >
+          <option value="">Cuisine</option>
           <option value="italian">Italian</option>
           <option value="mexican">Mexican</option>
-        </select>
-        <select value={diet} onChange={(e) => setDiet(e.target.value)}>
-          <option value="">Select Diet</option>
+        </Select>
+        <Select
+          size="small"
+          value={diet}
+          onChange={(e) => setDiet(e.target.value)}
+        >
+          <option value="">Diet</option>
           <option value="vegan">Vegan</option>
           <option value="vegetarian">Vegetarian</option>
-        </select>
-        <select
+        </Select>
+        <Select
+          size="small"
           value={intolerance}
           onChange={(e) => setIntolerance(e.target.value)}
         >
-          <option value="">Select Intolerance</option>
+          <option value="">Intolerance</option>
           <option value="dairy">Dairy</option>
           <option value="gluten">Gluten</option>
-        </select>
+        </Select>
       </Field>
     </>
   );
