@@ -1,1 +1,3 @@
-export default function RecipeDetailsPage() {}
+export default function RecipeDetailsPage() {
+  return <>RecipeDetailsPage</>;
+}

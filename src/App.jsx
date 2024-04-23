@@ -1,6 +1,7 @@
 // import React from "react";
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import "bulma/css/bulma.min.css";
+import { Route, Routes } from "react-router-dom";
 import LandingPage from "./Pages/LandingPage";
 import RecipeDetailsPage from "./Pages/RecipeDetailsPage";
 import SavedRecipesPage from "./Pages/SavedRecipesPage";
