@@ -6,9 +6,7 @@ export default function ResultsDisplay({ recipes }) {
     <Container>
       <Columns multiline={true}>
         {recipes.map((recipe) => (
-          <Columns.Column narrow size={4} key={recipe.id}>
-            <RecipeCard recipe={recipe} />
-          </Columns.Column>
+          <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </Columns>
     </Container>
