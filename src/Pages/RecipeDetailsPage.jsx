@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Block, Panel } from "react-bulma-components";
+import { Block, Button, Panel } from "react-bulma-components";
 import { useParams } from "react-router-dom";
 import NavBar from "../Components/NavBar";
 import Header from "../Components/Header";
@@ -40,19 +40,24 @@ export default function RecipeDetailsPage() {
         <Panel.Header>{recipeDetails.title}</Panel.Header>
         <Panel.Block>
           <img size="2by1" src={recipeDetails.image} />
-          {/* <p>details</p> */}
-          <h3>Instructions:</h3>
+          <Button>Bookmark</Button>
+        </Panel.Block>
+        <Panel.Block>
+          <Panel.Tabs>
+            <Panel.Tabs.Tab active>Instructions</Panel.Tabs.Tab>
+          </Panel.Tabs>
+        </Panel.Block>
+        <Panel.Block>
           {recipeDetails.analyzedInstructions &&
           recipeDetails.analyzedInstructions.length > 0 ? (
             recipeDetails.analyzedInstructions.map((instruction, index) => (
-              <div key={index}>
-                <h4>Step {index + 1}</h4>
-                <ul>
+              <Panel.Block key={index}>
+                <ol>
                   {instruction.steps.map((step, stepIndex) => (
                     <li key={stepIndex}>{step.step}</li>
                   ))}
-                </ul>
-              </div>
+                </ol>
+              </Panel.Block>
             ))
           ) : (
             <p>Fetching details</p>
