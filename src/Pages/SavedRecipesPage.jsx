@@ -4,6 +4,7 @@ import { Container, Content, Heading, Section } from "react-bulma-components";
 
 export default function SavedRecipesPage() {
   const { savedRecipes } = useContext(AirtableContext);
+  //need to then display in this children component--> use map to iterate thru airtable data
 
   return (
     <Container>

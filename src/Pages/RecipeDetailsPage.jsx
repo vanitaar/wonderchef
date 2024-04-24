@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Block, Button, Panel } from "react-bulma-components";
 import { useParams } from "react-router-dom";
 import NavBar from "../Components/NavBar";
 import Header from "../Components/Header";
+import { AirtableContext } from "../AirtableContext";
 
 //fetch data from recipeInfo url using id param
 export default function RecipeDetailsPage() {
@@ -10,7 +11,11 @@ export default function RecipeDetailsPage() {
   const apiUrl = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${
     import.meta.env.VITE_SPOON_API_KEY
   }&addWinePairing=false&addTasteData=false`;
+
+  const { addRecipeToAirtable } = useContext(AirtableContext);
+
   const [recipeDetails, setRecipeDetails] = useState({}); //initialize as empty obj (not null)
+
   //useEffect(() => {},[id]) to fetch data based on id -->dependency array
   useEffect(() => {
     async function fetchRecipeDetails() {
@@ -29,6 +34,9 @@ export default function RecipeDetailsPage() {
     }
     fetchRecipeDetails();
   }, [apiUrl, id]);
+
+  //refactoring data to be able to map to airtable fields //return an obj?
+  function detailsToAirtable() {}
 
   return (
     <>

@@ -36,10 +36,35 @@ export default function AirtableContextProvider({ children }) {
     fetchSavedRecipes();
   }, []);
 
-  //need to then display in children component--> use map to iterate thru airtable data
+  //POST
+  async function addRecipeToAirtable(recipeData) {
+    try {
+      const response = await fetch(
+        "https://api.airtable.com/v0/appqsD3wc5xZBbGMa/MySavedRecipes",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ fields: recipeData }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to add recipe to Airtable");
+      }
+
+      console.log("Recipe added to Airtable successfully");
+    } catch (error) {
+      console.error("Error adding recipe to Airtable:", error);
+    }
+  }
 
   return (
-    <AirtableContext.Provider value={{ savedRecipes }}>
+    <AirtableContext.Provider
+      value={{ savedRecipes, setSavedRecipes, addRecipeToAirtable }}
+    >
       {children}
     </AirtableContext.Provider>
   );
