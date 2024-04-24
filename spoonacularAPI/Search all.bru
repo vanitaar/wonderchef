@@ -5,7 +5,15 @@ meta {
 }
 
 get {
-  url: https://api.spoonacular.com/recipes/complexSearch
+  url: https://api.spoonacular.com/recipes/complexSearch?limitLicense=true&apiKey=df8233aa06324bcc97c9a7cc3e111327&number=12&sort='time'&sortDirection='asc'
   body: none
   auth: none
+}
+
+query {
+  limitLicense: true
+  apiKey: df8233aa06324bcc97c9a7cc3e111327
+  number: 12
+  sort: 'time'
+  sortDirection: 'asc'
 }
