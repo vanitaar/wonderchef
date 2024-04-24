@@ -2,11 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
+import AirtableContextProvider from "./AirtableContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AirtableContextProvider>
+        <App />
+      </AirtableContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
