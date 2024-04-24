@@ -5,16 +5,16 @@ export default function ResultsDisplay({ recipes }) {
   return (
     <Container>
       {/* if no recipe found */}
-      {recipes.length >= 1 ? (
-        <Heading subtitle>
-          Looks like we &apos;re fresh out of recipes here!
-        </Heading>
-      ) : (
+      {recipes.length !== 0 ? (
         <Columns multiline={true}>
           {recipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
         </Columns>
+      ) : (
+        <Heading subtitle>
+          Looks like we &apos;re fresh out of recipes here!
+        </Heading>
       )}
     </Container>
   );
