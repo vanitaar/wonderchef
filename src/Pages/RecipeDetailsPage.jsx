@@ -12,12 +12,16 @@ export default function RecipeDetailsPage() {
     import.meta.env.VITE_SPOON_API_KEY
   }&addWinePairing=false&addTasteData=false`;
 
-  const { addRecipeToAirtable } = useContext(AirtableContext);
+  const { addRecipeToAirtable, savedRecipes, setSavedRecipes } =
+    useContext(AirtableContext);
 
   const [recipeDetails, setRecipeDetails] = useState({}); //initialize as empty obj (not null)
 
   //useEffect(() => {},[id]) to fetch data based on id -->dependency array
+  //adding cleanup to useEffect (console.log x10)
   useEffect(() => {
+    let active = true; //setup boolean for cleanup fn
+
     async function fetchRecipeDetails() {
       try {
         const response = await fetch(apiUrl);
@@ -26,17 +30,33 @@ export default function RecipeDetailsPage() {
         }
         const data = await response.json();
         console.log(data); // check data received //is {id:*, image:*, servings:*, title:*, analyzedInstrctions: [{steps: [{number:1, step: xxx}]}], }
-
-        setRecipeDetails(data);
+        if (active) {
+          setRecipeDetails(data);
+        }
       } catch (error) {
         console.error("There was a problem with your fetch operation:", error);
       }
     }
     fetchRecipeDetails();
+
+    return () => {
+      active = false;
+    };
   }, [apiUrl, id]);
 
-  //refactoring data to be able to map to airtable fields //return an obj?
-  function detailsToAirtable() {}
+  //refactoring data to be able to suit to airtable fields format//return an obj --> {header:data}//based on POST body
+  function detailsToAirtable(recipeDetails) {
+    return {
+      ImgSrc: recipeDetails.image,
+      MyRecipeID: recipeDetails.id,
+      TItle: recipeDetails.title,
+      Instructions: recipeDetails?.analyzedInstructions
+        ?.map((instruction) => instruction.steps.map((step) => step.step))
+        .flat(),
+    };
+  }
+  console.log(detailsToAirtable(recipeDetails));
+  //bookmark button --> addRecipeToAirtable
 
   return (
     <>
