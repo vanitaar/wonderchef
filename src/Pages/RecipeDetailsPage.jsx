@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Button, Panel } from "react-bulma-components";
 import { useParams } from "react-router-dom";
 import { AirtableContext } from "../AirtableContext";
-import {FaCheckCircle} from "react-icons/fa"
+import { FaCheckCircle } from "react-icons/fa";
 
 //fetch data from recipeInfo url using id param
 export default function RecipeDetailsPage() {
@@ -33,11 +33,9 @@ export default function RecipeDetailsPage() {
         if (active) {
           setRecipeDetails(data);
           //checking  if  already bookmarked //some method to see if at least one meets condition//.some(() => cond)
-          const isAlreadyBookmarked = savedRecipes.some(
-            (recipe) => recipe.apiID === data.id
-          );
-          console.log("alreadyBookmarked: ", isAlreadyBookmarked);
-          setIsBookmarked(isAlreadyBookmarked);
+          if (savedRecipes.some((recipe) => recipe.apiID === data.id)) {
+            setIsBookmarked(true);
+          }
         }
       } catch (error) {
         console.error("There was a problem with your fetch operation:", error);
@@ -74,10 +72,11 @@ export default function RecipeDetailsPage() {
         <Panel.Header>{recipeDetails.title}</Panel.Header>
         <Panel.Block>
           <img size="2by1" src={recipeDetails.image} />
-          <Button onClick={clickBookmark} disabled={isBookmarked}>
+          <Button onClick={clickBookmark} disabled={isBookmarked === true}>
             {isBookmarked ? (
               <>
-                Bookmarked <FaCheckCircle style= {{color: 'rgb(255, 255, 0)'}}/>
+                Bookmarked{" "}
+                <FaCheckCircle style={{ color: "rgb(255, 255, 0)" }} />
               </>
             ) : (
               "Bookmark"
