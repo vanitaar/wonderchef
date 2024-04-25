@@ -11,6 +11,8 @@ export default function AirtableContextProvider({ children }) {
 
   //fetch records from airtable when component mounts --> empty dependency array //useEffect(() => {}, [])
   useEffect(() => {
+    let active = true;
+
     async function fetchSavedRecipes() {
       try {
         const response = await fetch(apiUrl, {
@@ -27,13 +29,20 @@ export default function AirtableContextProvider({ children }) {
 
         const data = await response.json();
         console.log(data.records);
-        setSavedRecipes(data.records); // airtable returns obj--> {records: [{fields: {header: data}}]}
+        if (active) {
+          setSavedRecipes(data.records);
+        } // airtable returns obj--> {records: [{fields: {header: data}}]}
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
 
     fetchSavedRecipes();
+
+    //cleanup fn
+    return () => {
+      active = false;
+    };
   }, []);
 
   //POST //recipeData = {header: data, }

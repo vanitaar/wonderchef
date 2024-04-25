@@ -1,12 +1,6 @@
 import { useContext } from "react";
 import { AirtableContext } from "../AirtableContext";
-import {
-  Button,
-  Container,
-  Content,
-  Heading,
-  Section,
-} from "react-bulma-components";
+import { Container, Content, Heading, Section } from "react-bulma-components";
 import { Link } from "react-router-dom";
 
 export default function SavedRecipesPage() {

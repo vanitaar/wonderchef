@@ -48,9 +48,6 @@ export default function RecipeDetailsPage() {
       ImgSrc: recipeDetails.image,
       apiID: recipeDetails.id?.toString(),
       TItle: recipeDetails.title,
-      //   Instructions: recipeDetails?.analyzedInstructions
-      //     ?.map((instruction) => instruction.steps.map((step) => step.step))
-      //     .flat(),
     };
   }
   console.log(detailsToAirtable(recipeDetails));
@@ -60,24 +57,6 @@ export default function RecipeDetailsPage() {
     const recipeData = detailsToAirtable(recipeDetails);
     addRecipeToAirtable(recipeData);
   }
-
-  //   const hardcodedRecipe = {
-  //     id: "123",
-  //     title: "Test Recipe",
-  //     image: "https://example.com/test-image.jpg",
-  //     analyzedInstructions: [
-  //       {
-  //         steps: [
-  //           { step: "Step 1: Prepare ingredients" },
-  //           { step: "Step 2: Cook the dish" },
-  //         ],
-  //       },
-  //     ],
-  //   };
-
-  //   function clickBookmark() {
-  //     addRecipeToAirtable(hardcodedRecipe);
-  //   }
 
   return (
     <>
