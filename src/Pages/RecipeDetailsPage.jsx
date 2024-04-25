@@ -48,7 +48,7 @@ export default function RecipeDetailsPage() {
   function detailsToAirtable(recipeDetails) {
     return {
       ImgSrc: recipeDetails.image,
-      MyRecipeID: recipeDetails.id,
+      apiID: recipeDetails.id,
       TItle: recipeDetails.title,
       Instructions: recipeDetails?.analyzedInstructions
         ?.map((instruction) => instruction.steps.map((step) => step.step))
@@ -56,7 +56,11 @@ export default function RecipeDetailsPage() {
     };
   }
   console.log(detailsToAirtable(recipeDetails));
+
   //bookmark button --> addRecipeToAirtable
+  function clickBookmark(recipeDetails) {
+    addRecipeToAirtable(detailsToAirtable(recipeDetails));
+  }
 
   return (
     <>
@@ -68,7 +72,7 @@ export default function RecipeDetailsPage() {
         <Panel.Header>{recipeDetails.title}</Panel.Header>
         <Panel.Block>
           <img size="2by1" src={recipeDetails.image} />
-          <Button>Bookmark</Button>
+          <Button onClick={clickBookmark}>Bookmark</Button>
         </Panel.Block>
         <Panel.Block>
           <Panel.Tabs>
