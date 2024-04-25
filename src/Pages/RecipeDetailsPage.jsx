@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Button, Panel } from "react-bulma-components";
 import { useParams } from "react-router-dom";
 import { AirtableContext } from "../AirtableContext";
+import {FaCheckCircle} from "react-icons/fa"
 
 //fetch data from recipeInfo url using id param
 export default function RecipeDetailsPage() {
@@ -10,10 +11,11 @@ export default function RecipeDetailsPage() {
     import.meta.env.VITE_SPOON_API_KEY
   }&addWinePairing=false&addTasteData=false`;
 
-  const { addRecipeToAirtable, savedRecipes, setSavedRecipes } =
-    useContext(AirtableContext);
+  const { addRecipeToAirtable, savedRecipes } = useContext(AirtableContext);
 
   const [recipeDetails, setRecipeDetails] = useState({}); //initialize as empty obj (not null)
+
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   //useEffect(() => {},[id]) to fetch data based on id -->dependency array
   //adding cleanup to useEffect (console.log x10)
@@ -30,6 +32,12 @@ export default function RecipeDetailsPage() {
         console.log(data); // check data received //is {id:*, image:*, servings:*, title:*, analyzedInstrctions: [{steps: [{number:1, step: xxx}]}], }
         if (active) {
           setRecipeDetails(data);
+          //checking  if  already bookmarked //some method to see if at least one meets condition//.some(() => cond)
+          const isAlreadyBookmarked = savedRecipes.some(
+            (recipe) => recipe.apiID === data.id
+          );
+          console.log("alreadyBookmarked: ", isAlreadyBookmarked);
+          setIsBookmarked(isAlreadyBookmarked);
         }
       } catch (error) {
         console.error("There was a problem with your fetch operation:", error);
@@ -40,7 +48,7 @@ export default function RecipeDetailsPage() {
     return () => {
       active = false;
     };
-  }, [apiUrl, id]);
+  }, [apiUrl, id, savedRecipes]);
 
   //refactoring data to be able to suit to airtable fields format//return an obj --> {header:data}//based on POST body
   function detailsToAirtable(recipeDetails) {
@@ -55,7 +63,8 @@ export default function RecipeDetailsPage() {
   //bookmark button --> addRecipeToAirtable
   function clickBookmark() {
     const recipeData = detailsToAirtable(recipeDetails);
-    addRecipeToAirtable(recipeData);
+    addRecipeToAirtable(recipeData); //POST
+    setIsBookmarked(true); //onClick set state
   }
 
   return (
@@ -65,7 +74,15 @@ export default function RecipeDetailsPage() {
         <Panel.Header>{recipeDetails.title}</Panel.Header>
         <Panel.Block>
           <img size="2by1" src={recipeDetails.image} />
-          <Button onClick={clickBookmark}>Bookmark</Button>
+          <Button onClick={clickBookmark} disabled={isBookmarked}>
+            {isBookmarked ? (
+              <>
+                Bookmarked <FaCheckCircle style= {{color: 'rgb(255, 255, 0)'}}/>
+              </>
+            ) : (
+              "Bookmark"
+            )}
+          </Button>
         </Panel.Block>
         <Panel.Block>
           <Panel.Tabs>
