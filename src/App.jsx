@@ -5,15 +5,23 @@ import { Route, Routes } from "react-router-dom";
 import LandingPage from "./Pages/LandingPage";
 import RecipeDetailsPage from "./Pages/RecipeDetailsPage";
 import SavedRecipesPage from "./Pages/SavedRecipesPage";
+import NavBar from "./Components/NavBar";
+import Header from "./Components/Header";
+import Footer from "react-bulma-components";
+import { Block } from "react-bulma-components";
 
 function App() {
   return (
     <>
+      <NavBar />
+      <Header />
+      <Block />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/recipe/:id" element={<RecipeDetailsPage />} />
         <Route path="/saved-recipes" element={<SavedRecipesPage />} />
       </Routes>
+      <Footer />
     </>
   );
 }

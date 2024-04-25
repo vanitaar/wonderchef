@@ -1,7 +1,4 @@
 // import React from "react";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
-import NavBar from "../Components/NavBar";
 import SearchBar from "../Components/SearchBar";
 import ResultsDisplay from "../Components/ResultsDisplay";
 import { useState } from "react";
@@ -34,11 +31,8 @@ export default function LandingPage() {
 
   return (
     <>
-      <NavBar />
-      <Header />
       <SearchBar onSearch={handleSearch} />
       <ResultsDisplay recipes={recipes} />
-      <Footer />
     </>
   );
 }

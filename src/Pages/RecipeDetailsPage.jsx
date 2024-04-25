@@ -1,8 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import { Block, Button, Panel } from "react-bulma-components";
+import { Button, Panel } from "react-bulma-components";
 import { useParams } from "react-router-dom";
-import NavBar from "../Components/NavBar";
-import Header from "../Components/Header";
 import { AirtableContext } from "../AirtableContext";
 
 //fetch data from recipeInfo url using id param
@@ -64,9 +62,6 @@ export default function RecipeDetailsPage() {
 
   return (
     <>
-      <NavBar />
-      <Header />
-      <Block />
       {/* RecipeDetailsPage {id} */}
       <Panel>
         <Panel.Header>{recipeDetails.title}</Panel.Header>
