@@ -29,7 +29,7 @@ export default function SearchBar({ onSearch }) {
         <Control>
           <Input
             className="input is-rounded"
-            type="text"
+            type="search"
             placeholder="Search recipes"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
