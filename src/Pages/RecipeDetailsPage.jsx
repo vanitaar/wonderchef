@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Button, Panel } from "react-bulma-components";
+import { Button, Content, Panel } from "react-bulma-components";
 import { useParams } from "react-router-dom";
 import { AirtableContext } from "../AirtableContext";
 import { FaCheckCircle } from "react-icons/fa";
@@ -85,6 +85,7 @@ export default function RecipeDetailsPage() {
         <Panel.Block>
           <Panel.Tabs>
             <Panel.Tabs.Tab active>Instructions</Panel.Tabs.Tab>
+            <Panel.Tabs.Tab>Ingredients</Panel.Tabs.Tab>
           </Panel.Tabs>
         </Panel.Block>
         <Panel.Block>
@@ -102,6 +103,15 @@ export default function RecipeDetailsPage() {
           ) : (
             <p>Fetching details</p>
           )}
+        </Panel.Block>
+        <Panel.Block>
+          {recipeDetails?.extendedIngredients?.map((ingredient, index) => (
+            <Content key={index}>
+              <ul>
+                <li key={index}>{ingredient.original}</li>
+              </ul>
+            </Content>
+          ))}
         </Panel.Block>
       </Panel>
     </>
