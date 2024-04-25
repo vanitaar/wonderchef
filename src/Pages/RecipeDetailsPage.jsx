@@ -43,21 +43,40 @@ export default function RecipeDetailsPage() {
   }, [apiUrl, id]);
 
   //refactoring data to be able to suit to airtable fields format//return an obj --> {header:data}//based on POST body
-  function detailsToAirtable(recipeDetails) {
-    return {
-      ImgSrc: recipeDetails.image,
-      apiID: recipeDetails.id,
-      TItle: recipeDetails.title,
-      Instructions: recipeDetails?.analyzedInstructions
-        ?.map((instruction) => instruction.steps.map((step) => step.step))
-        .flat(),
-    };
-  }
-  console.log(detailsToAirtable(recipeDetails));
+  //   function detailsToAirtable(recipeDetails) {
+  //     return {
+  //       ImgSrc: recipeDetails.image,
+  //       apiID: recipeDetails.id,
+  //       TItle: recipeDetails.title,
+  //       Instructions: recipeDetails?.analyzedInstructions
+  //         ?.map((instruction) => instruction.steps.map((step) => step.step))
+  //         .flat(),
+  //     };
+  //   }
+  //   console.log(detailsToAirtable(recipeDetails));
 
   //bookmark button --> addRecipeToAirtable
-  function clickBookmark(recipeDetails) {
-    addRecipeToAirtable(detailsToAirtable(recipeDetails));
+  //   function clickBookmark() {
+  //     const recipeData = detailsToAirtable(recipeDetails);
+  //     addRecipeToAirtable(recipeData);
+  //   }
+
+  const hardcodedRecipe = {
+    id: "123",
+    title: "Test Recipe",
+    image: "https://example.com/test-image.jpg",
+    analyzedInstructions: [
+      {
+        steps: [
+          { step: "Step 1: Prepare ingredients" },
+          { step: "Step 2: Cook the dish" },
+        ],
+      },
+    ],
+  };
+
+  function clickBookmark() {
+    addRecipeToAirtable(hardcodedRecipe);
   }
 
   return (

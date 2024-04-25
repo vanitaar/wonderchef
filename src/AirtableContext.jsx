@@ -37,7 +37,7 @@ export default function AirtableContextProvider({ children }) {
   }, []);
 
   //POST //recipeData = {header: data, }
-  async function addRecipeToAirtable(recipeData) {
+  async function addRecipeToAirtable(recipeDetails) {
     try {
       const response = await fetch(
         "https://api.airtable.com/v0/appqsD3wc5xZBbGMa/MySavedRecipes",
@@ -47,7 +47,17 @@ export default function AirtableContextProvider({ children }) {
             Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_KEY}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ fields: recipeData }),
+          body: JSON.stringify({
+            records: [
+              {
+                fields: {
+                  ImgSrc: recipeDetails.image,
+                  apiID: recipeDetails.id,
+                  TItle: recipeDetails.title,
+                },
+              },
+            ],
+          }),
         }
       );
 

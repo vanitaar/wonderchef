@@ -7,7 +7,7 @@ import RecipeDetailsPage from "./Pages/RecipeDetailsPage";
 import SavedRecipesPage from "./Pages/SavedRecipesPage";
 import NavBar from "./Components/NavBar";
 import Header from "./Components/Header";
-import Footer from "react-bulma-components";
+import Footer from "./Components/Footer";
 import { Block } from "react-bulma-components";
 
 function App() {
