@@ -6,6 +6,7 @@ export const AirtableContext = createContext();
 //using children prop to access nested components --> wrapped by this Component
 export default function AirtableContextProvider({ children }) {
   const [savedRecipes, setSavedRecipes] = useState([]); //initialize as empty array ?null
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const apiUrl =
     "https://api.airtable.com/v0/appqsD3wc5xZBbGMa/MySavedRecipes?view=Grid%20view";
 
@@ -76,6 +77,7 @@ export default function AirtableContextProvider({ children }) {
       }
 
       console.log("Recipe added to Airtable successfully");
+      setIsBookmarked(true);
     } catch (error) {
       console.error("Error adding recipe to Airtable:", error);
     }
@@ -83,7 +85,13 @@ export default function AirtableContextProvider({ children }) {
 
   return (
     <AirtableContext.Provider
-      value={{ savedRecipes, setSavedRecipes, addRecipeToAirtable }}
+      value={{
+        savedRecipes,
+        setSavedRecipes,
+        addRecipeToAirtable,
+        isBookmarked,
+        setIsBookmarked,
+      }}
     >
       {children}
     </AirtableContext.Provider>

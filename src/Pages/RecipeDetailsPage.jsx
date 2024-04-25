@@ -11,11 +11,10 @@ export default function RecipeDetailsPage() {
     import.meta.env.VITE_SPOON_API_KEY
   }&addWinePairing=false&addTasteData=false`;
 
-  const { addRecipeToAirtable, savedRecipes } = useContext(AirtableContext);
+  const { addRecipeToAirtable, savedRecipes, isBookmarked, setIsBookmarked } =
+    useContext(AirtableContext);
 
   const [recipeDetails, setRecipeDetails] = useState({}); //initialize as empty obj (not null)
-
-  const [isBookmarked, setIsBookmarked] = useState(false);
 
   //useEffect(() => {},[id]) to fetch data based on id -->dependency array
   //adding cleanup to useEffect (console.log x10)
@@ -46,7 +45,7 @@ export default function RecipeDetailsPage() {
     return () => {
       active = false;
     };
-  }, [apiUrl, id, savedRecipes]);
+  }, [apiUrl, id, savedRecipes, setIsBookmarked]);
 
   //refactoring data to be able to suit to airtable fields format//return an obj --> {header:data}//based on POST body
   function detailsToAirtable(recipeDetails) {
