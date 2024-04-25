@@ -11,8 +11,13 @@ export default function RecipeDetailsPage() {
     import.meta.env.VITE_SPOON_API_KEY
   }&addWinePairing=false&addTasteData=false`;
 
-  const { addRecipeToAirtable, savedRecipes, isBookmarked, setIsBookmarked } =
-    useContext(AirtableContext);
+  const {
+    addRecipeToAirtable,
+    savedRecipes,
+    setSavedRecipes,
+    isBookmarked,
+    setIsBookmarked,
+  } = useContext(AirtableContext);
 
   const [recipeDetails, setRecipeDetails] = useState({}); //initialize as empty obj (not null)
 
@@ -60,8 +65,10 @@ export default function RecipeDetailsPage() {
   //bookmark button --> addRecipeToAirtable
   function clickBookmark() {
     const recipeData = detailsToAirtable(recipeDetails);
-    addRecipeToAirtable(recipeData); //POST
-    setIsBookmarked(true); //onClick set state
+    addRecipeToAirtable(recipeData); //POST --> asyn fn = call API, doesnt wait for response before moving on with next lin of code
+    setIsBookmarked(true); //onClick set state immediately
+    setSavedRecipes([...savedRecipes, recipeData]); //to update immediately
+    console.log("boookmarked successfully");
   }
 
   return (
