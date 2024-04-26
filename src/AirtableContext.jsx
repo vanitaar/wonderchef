@@ -115,6 +115,7 @@ export default function AirtableContextProvider({ children }) {
   return (
     <AirtableContext.Provider
       value={{
+        apiUrl,
         savedRecipes,
         setSavedRecipes,
         addRecipeToAirtable,

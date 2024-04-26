@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AirtableContext } from "../AirtableContext";
 import {
   Container,
@@ -10,10 +10,30 @@ import {
 import { Link } from "react-router-dom";
 
 export default function SavedRecipesPage() {
-  const { savedRecipes, delRecipe } = useContext(AirtableContext);
+  const { savedRecipes, delRecipe, setSavedRecipes, apiUrl } =
+    useContext(AirtableContext);
+
+  useEffect(() => {
+    async function fetchDataAfterDelete() {
+      try {
+        const response = await fetch(apiUrl, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_KEY}`,
+          },
+        });
+        const data = await response.json();
+        setSavedRecipes(data.records);
+      } catch (error) {
+        console.error("Error fetching data after delete:", error);
+      }
+    }
+
+    fetchDataAfterDelete();
+  }, [delRecipe, setSavedRecipes, apiUrl]);
 
   //delete button --> delRecipe
-
   function clickDelete(recordId) {
     // console.log("check delete button");
     delRecipe(recordId); //hardcoded works //but immediate ? never click still works// need to check
