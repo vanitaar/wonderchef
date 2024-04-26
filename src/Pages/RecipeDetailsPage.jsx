@@ -71,8 +71,6 @@ export default function RecipeDetailsPage() {
     console.log("boookmarked successfully");
   }
 
-  //delete button --> deleteFromAirtable
-
   return (
     <>
       {/* RecipeDetailsPage {id} */}

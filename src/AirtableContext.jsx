@@ -83,6 +83,31 @@ export default function AirtableContextProvider({ children }) {
     }
   }
 
+  //DELETE //as checked bruno --> figured del via query Xbody //need to get recordId from parameter/arg to query param
+  //recordId need to be passed as arg in clickDelete
+  async function delRecipe(recordId) {
+    try {
+      const response = await fetch(
+        `https://api.airtable.com/v0/appqsD3wc5xZBbGMa/MySavedRecipes?records[]=${recordId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_KEY}`,
+            // "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete recipe from Airtable");
+      }
+
+      console.log("Recipe deleted from Airtable successfully");
+    } catch (error) {
+      console.error("Error deleting recipe from Airtable:", error);
+    }
+  }
+
   return (
     <AirtableContext.Provider
       value={{
@@ -91,6 +116,7 @@ export default function AirtableContextProvider({ children }) {
         addRecipeToAirtable,
         isBookmarked,
         setIsBookmarked,
+        delRecipe,
       }}
     >
       {children}

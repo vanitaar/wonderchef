@@ -10,7 +10,14 @@ import {
 import { Link } from "react-router-dom";
 
 export default function SavedRecipesPage() {
-  const { savedRecipes } = useContext(AirtableContext);
+  const { savedRecipes, delRecipe } = useContext(AirtableContext);
+
+  //delete button --> delRecipe
+
+  function clickDelete(recordId) {
+    console.log("check delete button");
+    delRecipe(recordId); //hardcoded works //but immediate ? never click still works// need to check
+  }
 
   return (
     <Container>
@@ -22,7 +29,7 @@ export default function SavedRecipesPage() {
               <h5>{recipe.fields.TItle}</h5>
               <img src={recipe.fields.ImgSrc} alt={recipe.fields.TItle} />
               {/* delete button yet to work*/}
-              <Button remove />
+              <Button onClick={clickDelete("recfbqFi5CPkJVZA7")} remove />
               <Link to={`/recipe/${recipe.fields.apiID}`}>
                 See Recipe Details
               </Link>
