@@ -29,7 +29,7 @@ export default function SavedRecipesPage() {
               <h5>{recipe.fields.TItle}</h5>
               <img src={recipe.fields.ImgSrc} alt={recipe.fields.TItle} />
               {/* delete button yet to work*/}
-              <Button onClick={clickDelete("recfbqFi5CPkJVZA7")} remove />
+              <Button onClick={() => clickDelete("rec5EEuXhJpr3awe4")} remove />
               <Link to={`/recipe/${recipe.fields.apiID}`}>
                 See Recipe Details
               </Link>
