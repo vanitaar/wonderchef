@@ -103,6 +103,10 @@ export default function AirtableContextProvider({ children }) {
       }
 
       console.log("Recipe deleted from Airtable successfully");
+      //update state by filtering out
+      setSavedRecipes((prevRecipes) =>
+        prevRecipes.filter((recipe) => recipe.recordID !== recordId)
+      );
     } catch (error) {
       console.error("Error deleting recipe from Airtable:", error);
     }

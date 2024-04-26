@@ -15,8 +15,12 @@ export default function SavedRecipesPage() {
   //delete button --> delRecipe
 
   function clickDelete(recordId) {
-    console.log("check delete button");
+    // console.log("check delete button");
     delRecipe(recordId); //hardcoded works //but immediate ? never click still works// need to check
+    // //update state by filtering out
+    // setSavedRecipes((prevRecipes) =>
+    //   prevRecipes.filter((recipe) => recipe.recordID !== recordId)
+    // );
   }
 
   return (
@@ -29,7 +33,10 @@ export default function SavedRecipesPage() {
               <h5>{recipe.fields.TItle}</h5>
               <img src={recipe.fields.ImgSrc} alt={recipe.fields.TItle} />
               {/* delete button yet to work*/}
-              <Button onClick={() => clickDelete("rec5EEuXhJpr3awe4")} remove />
+              <Button
+                onClick={() => clickDelete(recipe.fields.recordID)}
+                remove
+              />
               <Link to={`/recipe/${recipe.fields.apiID}`}>
                 See Recipe Details
               </Link>
