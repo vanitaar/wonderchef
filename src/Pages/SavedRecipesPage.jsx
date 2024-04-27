@@ -4,8 +4,9 @@ import {
   Container,
   Content,
   Heading,
-  Section,
+  Image,
   Button,
+  Media,
 } from "react-bulma-components";
 import { Link } from "react-router-dom";
 
@@ -35,41 +36,50 @@ export default function SavedRecipesPage() {
 
   //delete button --> delRecipe
   function clickDelete(recordId) {
-    // console.log("check delete button");
     delRecipe(recordId); //hardcoded works //but immediate ? never click still works// need to check
-    // //update state by filtering out
-    // setSavedRecipes((prevRecipes) =>
-    //   prevRecipes.filter((recipe) => recipe.recordID !== recordId)
-    // );
   }
 
   if (loading) {
     return <div>Loading...</div>;
   }
+  /* if no recipe found */
+  if (savedRecipes.length === 0) {
+    return <Heading subtitle>Find your bookmarked recipes here!</Heading>;
+  }
 
   return (
     <Container>
-      {/* if no recipe found */}
-      {savedRecipes.length !== 0 ? (
-        <Content>
-          {savedRecipes.map((recipe, index) => (
-            <Section key={index}>
-              <h5>{recipe?.fields?.TItle}</h5>
-              <img src={recipe?.fields?.ImgSrc} alt={recipe?.fields?.TItle} />
-              {/* delete button yet to work*/}
+      <Content>
+        {savedRecipes.map((recipe, index) => (
+          <Media key={index}>
+            <Media.Item align="left">
+              <Image
+                src={recipe?.fields?.ImgSrc}
+                alt={recipe?.fields?.TItle}
+                size={230}
+                rounded={true}
+              />
+            </Media.Item>
+            <Media.Item align="center">
+              <Content>
+                <h5>{recipe?.fields?.TItle}</h5>
+                <br />
+                <small>
+                  <Link to={`/recipe/${recipe?.fields?.apiID}`}>
+                    See Recipe Details
+                  </Link>
+                </small>
+              </Content>
+            </Media.Item>
+            <Media.Item align="right">
               <Button
                 onClick={() => clickDelete(recipe?.fields?.recordID)}
                 remove
               />
-              <Link to={`/recipe/${recipe?.fields?.apiID}`}>
-                See Recipe Details
-              </Link>
-            </Section>
-          ))}
-        </Content>
-      ) : (
-        <Heading subtitle>Find your bookmarked recipes here!</Heading>
-      )}
+            </Media.Item>
+          </Media>
+        ))}
+      </Content>
     </Container>
   );
 }
