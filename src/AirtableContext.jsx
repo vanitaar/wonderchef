@@ -7,6 +7,9 @@ export const AirtableContext = createContext();
 export default function AirtableContextProvider({ children }) {
   const [savedRecipes, setSavedRecipes] = useState([]); //initialize as empty array ?null
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
+
   const apiUrl =
     "https://api.airtable.com/v0/appqsD3wc5xZBbGMa/MySavedRecipes?view=Grid%20view";
 
@@ -15,6 +18,7 @@ export default function AirtableContextProvider({ children }) {
     let active = true;
 
     async function fetchSavedRecipes() {
+      setLoading(true);
       try {
         const response = await fetch(apiUrl, {
           method: "GET",
@@ -32,9 +36,12 @@ export default function AirtableContextProvider({ children }) {
         console.log(data.records);
         if (active) {
           setSavedRecipes(data.records);
+          setLoading(false);
         } // airtable returns obj--> {records: [{fields: {header: data}}]}
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
+        // setError(error);
       }
     }
 

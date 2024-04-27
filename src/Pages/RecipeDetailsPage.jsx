@@ -67,7 +67,7 @@ export default function RecipeDetailsPage() {
     const recipeData = detailsToAirtable(recipeDetails);
     addRecipeToAirtable(recipeData); //POST --> asyn fn = call API, doesnt wait for response before moving on with next lin of code
     setIsBookmarked(true); //onClick set state immediately to update user process started// in addToAirtabl fn same line is if successfully added also set to true
-    setSavedRecipes((prevSavedRecipes) => [...prevSavedRecipes, recipeData]); //to update ased on prev --> most updated --> *functional update, trying to prevent stale data/race cond
+    setSavedRecipes((prevSavedRecipes) => [...prevSavedRecipes, recipeData]); //to update based on prev --> most updated --> *functional update, trying to prevent stale data/race cond
     console.log("boookmarked successfully");
   }
 

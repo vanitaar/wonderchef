@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 
 export default function SavedRecipesPage() {
-  const { savedRecipes, delRecipe, setSavedRecipes, apiUrl } =
+  const { savedRecipes, delRecipe, setSavedRecipes, apiUrl, isLoading } =
     useContext(AirtableContext);
 
   useEffect(() => {
@@ -43,6 +43,10 @@ export default function SavedRecipesPage() {
     // );
   }
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Container>
       {/* if no recipe found */}
@@ -50,14 +54,14 @@ export default function SavedRecipesPage() {
         <Content>
           {savedRecipes.map((recipe, index) => (
             <Section key={index}>
-              <h5>{recipe.fields.TItle}</h5>
-              <img src={recipe.fields.ImgSrc} alt={recipe.fields.TItle} />
+              <h5>{recipe?.fields?.TItle}</h5>
+              <img src={recipe?.fields?.ImgSrc} alt={recipe?.fields?.TItle} />
               {/* delete button yet to work*/}
               <Button
-                onClick={() => clickDelete(recipe.fields.recordID)}
+                onClick={() => clickDelete(recipe?.fields?.recordID)}
                 remove
               />
-              <Link to={`/recipe/${recipe.fields.apiID}`}>
+              <Link to={`/recipe/${recipe?.fields?.apiID}`}>
                 See Recipe Details
               </Link>
             </Section>
