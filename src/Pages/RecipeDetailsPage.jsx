@@ -73,8 +73,8 @@ export default function RecipeDetailsPage() {
   }
 
   if (
-    recipeDetails?.analyzedInstructions &&
-    recipeDetails?.analyzedInstructions?.length === 0
+    !recipeDetails ||
+    (!recipeDetails.analyzedInstructions && !recipeDetails.extendedIngredients)
   ) {
     return <p>Fetching details</p>;
   }
@@ -86,6 +86,7 @@ export default function RecipeDetailsPage() {
         <Panel.Header>{recipeDetails.title}</Panel.Header>
         <Panel.Block>
           <img size="2by1" src={recipeDetails.image} />
+          <br />
           <Button onClick={clickBookmark} disabled={isBookmarked === true}>
             {isBookmarked ? (
               <>
@@ -113,7 +114,6 @@ export default function RecipeDetailsPage() {
             </Panel.Tabs.Tab>
           </Panel.Tabs>
         </Panel.Block>
-        {/* <Panel.Block> */}
         {activeTab === "instructions" &&
           recipeDetails?.analyzedInstructions?.map((instruction, index) => (
             <Panel.Block key={index}>
@@ -124,15 +124,12 @@ export default function RecipeDetailsPage() {
               </ol>
             </Panel.Block>
           ))}
-        {/* </Panel.Block> */}
         <Content>
           {activeTab === "ingredients" &&
             recipeDetails?.extendedIngredients?.map((ingredient, index) => (
-              //   <Content key={index}>
               <ul key={index}>
                 <li key={index}>{ingredient.original}</li>
               </ul>
-              //   </Content>
             ))}
         </Content>
       </Panel>
