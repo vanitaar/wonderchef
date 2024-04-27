@@ -5,57 +5,65 @@ const { Input, Field, Control, Select } = Form;
 
 export default function SearchBar({ onSearch }) {
   let [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState("");
-  const [mealType, setMealType] = useState("");
-  const [cuisine, setCuisine] = useState("");
-  const [diet, setDiet] = useState("");
-  const [intolerances, setIntolerances] = useState("");
+  const [searchData, setSearchData] = useState({
+    query: searchParams.get("query") || "",
+    mealType: searchParams.get("mealType") || "",
+    cuisine: searchParams.get("cuisine") || "",
+    diet: searchParams.get("diet") || "",
+    intolerances: searchParams.get("intolerances") || "",
+  });
+
+  //query in input function --> onChange to take in target + searchData
+  const handleChange = (e) => {
+    const { name, value } = e.target; //obj destructuring to access input //prev was inline
+    setSearchData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   //use function passed in prop
-  const handleSearch = () => {
-    const searchParams = {
-      query,
-      mealType,
-      cuisine,
-      diet,
-      intolerances,
-    };
-    onSearch(searchParams);
+  const handleSearch = (e) => {
+    e.preventDefault(); //prevent page reload
+    setSearchParams(searchData);
+    onSearch(searchData); //arg cannot be searchParams--> holds URL search parameters -->logs {size:5}
   };
-  console.log(query);
+  console.log(searchData.query);
+  console.log(searchParams);
   return (
     <>
       <br />
       <Section>
         <Media>
           <Media.Item align="center">
-            <Field align="center" kind="addons">
-              <Control>
-                <Input
-                  className="input is-rounded"
-                  type="search"
-                  placeholder="Search recipes"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-              </Control>
-              <Control>
-                <button
-                  className="button is-danger is-rounded"
-                  onClick={handleSearch}
-                >
-                  Search
-                </button>
-              </Control>
-            </Field>
+            <form onSubmit={handleSearch}>
+              <Field align="center" kind="addons">
+                <Control>
+                  <Input
+                    className="input is-rounded"
+                    type="search"
+                    placeholder="Search recipes"
+                    name="query"
+                    value={searchData.query}
+                    onChange={handleChange}
+                  />
+                </Control>
+                <Control>
+                  <button className="button is-danger is-rounded" type="submit">
+                    Search
+                  </button>
+                </Control>
+              </Field>
+            </form>
           </Media.Item>
         </Media>
         <Media>
           <Field align="center" kind="group">
             <Select
               size="small"
-              value={mealType}
-              onChange={(e) => setMealType(e.target.value)}
+              name="mealType"
+              value={searchData.mealType}
+              onChange={handleChange}
             >
               <option value="">Meal Type</option>
               <option value="appetizer">Appetizer</option>
@@ -66,8 +74,9 @@ export default function SearchBar({ onSearch }) {
             </Select>
             <Select
               size="small"
-              value={cuisine}
-              onChange={(e) => setCuisine(e.target.value)}
+              name="cuisine"
+              value={searchData.cuisine}
+              onChange={handleChange}
             >
               <option value="">Cuisine</option>
               <option value="chinese">Chinese</option>
@@ -80,8 +89,9 @@ export default function SearchBar({ onSearch }) {
             </Select>
             <Select
               size="small"
-              value={diet}
-              onChange={(e) => setDiet(e.target.value)}
+              name="diet"
+              value={searchData.diet}
+              onChange={handleChange}
             >
               <option value="">Diet</option>
               <option value="ketogenic">Ketogenic</option>
@@ -92,8 +102,9 @@ export default function SearchBar({ onSearch }) {
             </Select>
             <Select
               size="small"
-              value={intolerances}
-              onChange={(e) => setIntolerances(e.target.value)}
+              name="intolerances"
+              value={searchData.intolerances}
+              onChange={handleChange}
             >
               <option value="">Intolerance</option>
               <option value="dairy">Dairy</option>

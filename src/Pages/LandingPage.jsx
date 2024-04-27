@@ -7,10 +7,12 @@ export default function LandingPage() {
   const [recipes, setRecipes] = useState([]);
 
   async function handleSearch(searchParams) {
-    const { query, mealType, cuisine, diet, intolerance } = searchParams;
+    // const { query, mealType, cuisine, diet, intolerance } = searchParams;
     const apiUrl = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${
       import.meta.env.VITE_SPOON_API_KEY
-    }&query=${query}&type=${mealType}&cuisine=${cuisine}&diet=${diet}&intolerance=${intolerance}`;
+    }&query=${searchParams.query}&type=${searchParams.mealType}&cuisine=${
+      searchParams.cuisine
+    }&diet=${searchParams.diet}&intolerance=${searchParams.intolerances}`;
 
     try {
       const response = await fetch(apiUrl);
