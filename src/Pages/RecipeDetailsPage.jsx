@@ -20,6 +20,7 @@ export default function RecipeDetailsPage() {
   } = useContext(AirtableContext);
 
   const [recipeDetails, setRecipeDetails] = useState({}); //initialize as empty obj (not null)
+  const [activeTab, setActiveTab] = useState("instructions"); //initalize default tab to instructions
 
   //useEffect(() => {},[id]) to fetch data based on id -->dependency array
   //adding cleanup to useEffect (console.log x10)
@@ -71,6 +72,13 @@ export default function RecipeDetailsPage() {
     console.log("boookmarked successfully");
   }
 
+  if (
+    recipeDetails?.analyzedInstructions &&
+    recipeDetails?.analyzedInstructions?.length === 0
+  ) {
+    return <p>Fetching details</p>;
+  }
+
   return (
     <>
       {/* RecipeDetailsPage {id} */}
@@ -91,35 +99,42 @@ export default function RecipeDetailsPage() {
         </Panel.Block>
         <Panel.Block>
           <Panel.Tabs>
-            <Panel.Tabs.Tab active>Instructions</Panel.Tabs.Tab>
-            <Panel.Tabs.Tab>Ingredients</Panel.Tabs.Tab>
+            <Panel.Tabs.Tab
+              active={activeTab === "instructions"}
+              onClick={() => setActiveTab("instructions")}
+            >
+              Instructions
+            </Panel.Tabs.Tab>
+            <Panel.Tabs.Tab
+              active={activeTab === "ingredients"}
+              onClick={() => setActiveTab("ingredients")}
+            >
+              Ingredients
+            </Panel.Tabs.Tab>
           </Panel.Tabs>
         </Panel.Block>
-        <Panel.Block>
-          {recipeDetails.analyzedInstructions &&
-          recipeDetails.analyzedInstructions.length > 0 ? (
-            recipeDetails.analyzedInstructions.map((instruction, index) => (
-              <Panel.Block key={index}>
-                <ol>
-                  {instruction.steps.map((step, stepIndex) => (
-                    <li key={stepIndex}>{step.step}</li>
-                  ))}
-                </ol>
-              </Panel.Block>
-            ))
-          ) : (
-            <p>Fetching details</p>
-          )}
-        </Panel.Block>
-        <Panel.Block>
-          {recipeDetails?.extendedIngredients?.map((ingredient, index) => (
-            <Content key={index}>
-              <ul>
+        {/* <Panel.Block> */}
+        {activeTab === "instructions" &&
+          recipeDetails?.analyzedInstructions?.map((instruction, index) => (
+            <Panel.Block key={index}>
+              <ol>
+                {instruction.steps.map((step, stepIndex) => (
+                  <li key={stepIndex}>{step.step}</li>
+                ))}
+              </ol>
+            </Panel.Block>
+          ))}
+        {/* </Panel.Block> */}
+        <Content>
+          {activeTab === "ingredients" &&
+            recipeDetails?.extendedIngredients?.map((ingredient, index) => (
+              //   <Content key={index}>
+              <ul key={index}>
                 <li key={index}>{ingredient.original}</li>
               </ul>
-            </Content>
-          ))}
-        </Panel.Block>
+              //   </Content>
+            ))}
+        </Content>
       </Panel>
     </>
   );
