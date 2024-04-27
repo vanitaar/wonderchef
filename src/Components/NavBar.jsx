@@ -1,6 +1,7 @@
 // import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "react-bulma-components";
+import logo from "./asset/logo.png";
 
 export default function NavBar() {
   return (
@@ -9,7 +10,7 @@ export default function NavBar() {
         <Navbar.Brand>
           <Navbar.Item renderAs="div">
             <Link to="/" className={"navbar-item"}>
-              <img src="../src/assets/favicon/favicon-32x32.png" alt="Logo" />
+              <img src={logo} alt="Logo" />
               <span>
                 <strong>WonderChef</strong>
               </span>
