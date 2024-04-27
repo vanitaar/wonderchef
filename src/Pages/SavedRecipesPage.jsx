@@ -56,7 +56,7 @@ export default function SavedRecipesPage() {
               <Image
                 src={recipe?.fields?.ImgSrc}
                 alt={recipe?.fields?.TItle}
-                size={230}
+                size={200}
                 rounded={true}
               />
             </Media.Item>
