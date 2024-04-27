@@ -5,15 +5,17 @@ import { Navbar } from "react-bulma-components";
 export default function NavBar() {
   return (
     <>
-      <Navbar>
+      <Navbar color={"warning"}>
         <Navbar.Brand>
           <Navbar.Item renderAs="div">
             <Link to="/" className={"navbar-item"}>
-              <img src="../src/assets/logo.png" alt="WonderChef Logo" />
-              <span>WonderChef</span>
+              <img src="../src/assets/favicon/favicon-32x32.png" alt="Logo" />
+              <span>
+                <strong>WonderChef</strong>
+              </span>
             </Link>
           </Navbar.Item>
-          <Navbar.Item renderAs="div">
+          <Navbar.Item renderAs="div" color="success">
             <Link to="/saved-recipes" className={"navbar-item"}>
               Saved Recipes
             </Link>
