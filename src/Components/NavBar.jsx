@@ -7,8 +7,8 @@ export default function NavBar() {
     <>
       <Navbar>
         <Navbar.Brand>
-          <Navbar.Item>
-            <Link to="/">
+          <Navbar.Item renderAs="div">
+            <Link to="/" className={"navbar-item"}>
               <img src="../src/assets/logo.png" alt="WonderChef Logo" />
               <span>WonderChef</span>
             </Link>
