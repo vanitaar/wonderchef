@@ -25,7 +25,12 @@ export default function SearchBar({ onSearch }) {
   //use function passed in prop
   const handleSearch = (e) => {
     e.preventDefault(); //prevent page reload
-    setSearchParams(searchData);
+    //remove empty string values from searchData //obj --> array --> filter --> obj
+    const refinedParams = Object.fromEntries(
+      Object.entries(searchData).filter(([key, value]) => value !== "")
+    );
+    console.log(refinedParams);
+    setSearchParams(refinedParams); //so  url will be without empty params
     onSearch(searchData); //arg cannot be searchParams--> holds URL search parameters -->logs {size:5}
   };
   console.log(searchData.query);
