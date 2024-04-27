@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 
 export default function SavedRecipesPage() {
-  const { savedRecipes, delRecipe, setSavedRecipes, apiUrl, isLoading } =
+  const { savedRecipes, delRecipe, setSavedRecipes, apiUrl, loading } =
     useContext(AirtableContext);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function SavedRecipesPage() {
     // );
   }
 
-  if (isLoading) {
+  if (loading) {
     return <div>Loading...</div>;
   }
 
