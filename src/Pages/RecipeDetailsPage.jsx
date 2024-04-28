@@ -88,8 +88,15 @@ export default function RecipeDetailsPage() {
         <Panel.Block>
           <img size="2by1" src={recipeDetails.image} />
           <br />
-          <Button onClick={clickBookmark} disabled={isBookmarked === true}>
-            {isBookmarked ? (
+          <Button
+            onClick={clickBookmark}
+            disabled={
+              isBookmarked === true ||
+              savedRecipes.some((recipe) => recipe.fields.apiID === id)
+            }
+          >
+            {isBookmarked ||
+            savedRecipes.some((recipe) => recipe.fields.apiID === id) ? (
               <>
                 Bookmarked{" "}
                 <FaCheckCircle style={{ color: "rgb(255, 255, 0)" }} />
