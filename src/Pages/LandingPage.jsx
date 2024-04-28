@@ -2,6 +2,7 @@
 import SearchBar from "../Components/SearchBar";
 import ResultsDisplay from "../Components/ResultsDisplay";
 import { useState } from "react";
+import Header from "../Components/Header";
 
 export default function LandingPage() {
   const [recipes, setRecipes] = useState([]);
@@ -33,6 +34,7 @@ export default function LandingPage() {
 
   return (
     <>
+      <Header />
       <SearchBar onSearch={handleSearch} />
       <ResultsDisplay recipes={recipes} />
     </>

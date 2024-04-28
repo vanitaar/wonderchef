@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Button, Content, Panel } from "react-bulma-components";
+import { Block, Button, Content, Panel } from "react-bulma-components";
 import { useParams } from "react-router-dom";
 import { AirtableContext } from "../AirtableContext";
 import { FaCheckCircle } from "react-icons/fa";
@@ -82,6 +82,7 @@ export default function RecipeDetailsPage() {
   return (
     <>
       {/* RecipeDetailsPage {id} */}
+      <Block />
       <Panel>
         <Panel.Header>{recipeDetails.title}</Panel.Header>
         <Panel.Block>

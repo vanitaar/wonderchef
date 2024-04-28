@@ -27,14 +27,14 @@ export default function SearchBar({ onSearch }) {
     e.preventDefault(); //prevent page reload
     //remove empty string values from searchData //obj --> array --> filter --> obj
     const refinedParams = Object.fromEntries(
-      Object.entries(searchData).filter(([key, value]) => value !== "")
+      Object.entries(searchData).filter(([_, value]) => value !== "") // eslint-disable-line no-unused-vars
     );
     console.log(refinedParams);
     setSearchParams(refinedParams); //so  url will be without empty params
     onSearch(searchData); //arg cannot be searchParams--> holds URL search parameters -->logs {size:5}
   };
-  console.log(searchData.query);
-  console.log(searchParams);
+  // console.log(searchData.query);
+  // console.log(searchParams);
   return (
     <>
       <br />

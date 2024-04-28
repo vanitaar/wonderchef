@@ -7,6 +7,8 @@ import {
   Image,
   Button,
   Media,
+  Hero,
+  Block,
 } from "react-bulma-components";
 import { Link } from "react-router-dom";
 
@@ -48,15 +50,24 @@ export default function SavedRecipesPage() {
   }
 
   return (
-    <Container>
-      <Content>
+    <>
+      <Hero>
+        <Hero.Body>
+          <Heading textColor="success">
+            <i>Saved Recipes</i>
+          </Heading>
+        </Hero.Body>
+      </Hero>
+      <Block />
+      <Container>
+        {/* <Content> */}
         {savedRecipes.map((recipe, index) => (
           <Media key={index}>
             <Media.Item align="left">
               <Image
                 src={recipe?.fields?.ImgSrc}
                 alt={recipe?.fields?.TItle}
-                size={200}
+                size={120}
                 rounded={true}
               />
             </Media.Item>
@@ -79,7 +90,8 @@ export default function SavedRecipesPage() {
             </Media.Item>
           </Media>
         ))}
-      </Content>
-    </Container>
+        {/* </Content> */}
+      </Container>
+    </>
   );
 }

@@ -1,15 +1,16 @@
 import RecipeCard from "./RecipeCard";
-import { Container, Columns, Heading } from "react-bulma-components";
+import { Container, Columns, Heading, Section } from "react-bulma-components";
 
 export default function ResultsDisplay({ recipes }) {
-  {
-    /* if no recipe found */
-  }
   if (recipes.length === 0) {
     return (
-      <Heading subtitle>
-        Looks like we &apos;re fresh out of recipes here!
-      </Heading>
+      <Section>
+        <Heading subtitle textColor="success">
+          <i>
+            Looks like we&apos;re fresh out of recipes here! Search and explore!
+          </i>
+        </Heading>
+      </Section>
     );
   }
 
