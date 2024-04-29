@@ -8,12 +8,12 @@ export default function RecipeRating({ initialRating, recordID }) {
 
   const handleMouseEnter = (newHoverRating) => {
     setHoverRating(newHoverRating);
-    console.log("enter:", hoverRating); //-->null
+    // console.log("enter:", hoverRating); //-->null
   };
 
   const handleMouseLeave = () => {
     setHoverRating(null);
-    console.log("leave:", hoverRating); //-->starIndex
+    // console.log("leave:", hoverRating); //-->starIndex
   };
 
   const handleEditRating = async (newRating) => {
