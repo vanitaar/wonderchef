@@ -1,5 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import { Block, Button, Content, Panel } from "react-bulma-components";
+import {
+  Block,
+  Button,
+  Content,
+  Panel,
+  Progress,
+} from "react-bulma-components";
 import { useParams } from "react-router-dom";
 import { AirtableContext } from "../AirtableContext";
 import { FaCheckCircle } from "react-icons/fa";
@@ -76,7 +82,15 @@ export default function RecipeDetailsPage() {
     !recipeDetails ||
     (!recipeDetails.analyzedInstructions && !recipeDetails.extendedIngredients)
   ) {
-    return <p>Fetching details</p>;
+    return (
+      <>
+        <Block />
+        <div className="content has-text-centered">
+          <strong>Fetching Details...</strong>
+        </div>
+        <Progress className="is-danger" />
+      </>
+    );
   }
 
   return (

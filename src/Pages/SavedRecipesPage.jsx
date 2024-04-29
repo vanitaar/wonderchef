@@ -9,6 +9,7 @@ import {
   Media,
   Hero,
   Block,
+  Progress,
 } from "react-bulma-components";
 import { Link } from "react-router-dom";
 import RecipeRating from "../Components/RecipeRating";
@@ -43,7 +44,15 @@ export default function SavedRecipesPage() {
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <Block />
+        <div className="content has-text-centered">
+          <strong>Loading...</strong>
+        </div>
+        <Progress className="is-danger" />
+      </>
+    );
   }
   /* if no recipe found */
   if (savedRecipes.length === 0) {
