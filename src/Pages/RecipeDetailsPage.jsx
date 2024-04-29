@@ -40,7 +40,7 @@ export default function RecipeDetailsPage() {
           throw new Error("Network response was not OK");
         }
         const data = await response.json();
-        console.log(data); // check data received //is {id:*, image:*, servings:*, title:*, analyzedInstrctions: [{steps: [{number:1, step: xxx}]}], }
+        // console.log(data); // check data received //is {id:*, image:*, servings:*, title:*, analyzedInstrctions: [{steps: [{number:1, step: xxx}]}], }
         if (active) {
           setRecipeDetails(data);
           //checking  if  already bookmarked //some method to see if at least one meets condition//.some(() => cond)
@@ -67,7 +67,7 @@ export default function RecipeDetailsPage() {
       TItle: recipeDetails.title,
     };
   }
-  console.log(detailsToAirtable(recipeDetails));
+  // console.log(detailsToAirtable(recipeDetails));
 
   //bookmark button --> addRecipeToAirtable
   function clickBookmark() {

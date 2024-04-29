@@ -40,7 +40,7 @@ export default function SavedRecipesPage() {
 
   //delete button --> delRecipe
   function clickDelete(recordId) {
-    delRecipe(recordId); //hardcoded works //but immediate ? never click still works// adjusted onClick function
+    delRecipe(recordId); 
   }
 
   if (loading) {
@@ -54,7 +54,7 @@ export default function SavedRecipesPage() {
       </>
     );
   }
-  /* if no recipe found */
+
   if (savedRecipes.length === 0) {
     return <Heading subtitle>Find your bookmarked recipes here!</Heading>;
   }
@@ -70,7 +70,6 @@ export default function SavedRecipesPage() {
       </Hero>
       <Block />
       <Container>
-        {/* <Content> */}
         {savedRecipes.map((recipe, index) => (
           <Media key={index}>
             <Media.Item align="left">
@@ -106,7 +105,6 @@ export default function SavedRecipesPage() {
             </Media.Item>
           </Media>
         ))}
-        {/* </Content> */}
       </Container>
     </>
   );

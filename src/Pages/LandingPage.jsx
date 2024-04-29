@@ -26,10 +26,10 @@ export default function LandingPage() {
         throw new Error("Network response was not OK");
       }
       const data = await response.json();
-      console.log(data); // check data received //is {results: [*], }
+      // console.log(data); // check data received //is {results: [*], }
 
       const fetchedRecipes = data.results;
-      console.log(fetchedRecipes); //[{id: xx, title: xx, image: xx}]
+      // console.log(fetchedRecipes); //[{id: xx, title: xx, image: xx}]
 
       setRecipes(fetchedRecipes);
     } catch (error) {
