@@ -16,14 +16,24 @@ export default function RecipeRating({ initialRating, recordID }) {
     console.log("leave:", hoverRating); //-->starIndex
   };
 
-  const handleAddRating = async (newRating) => {
-    console.log(newRating);
-    setRating(newRating); //local state updated
-    console.log("add rating");
-    console.log(rating);
+  const handleEditRating = async (newRating) => {
+    // console.log(newRating);
+    // setRating(newRating); //local state updated
+    // console.log("add rating");
+    // console.log(rating); //udefined --> probably need a useEffect? --> but will see if necessary //for now dw useEffect just for this log
+
+    //toggle remove/add star (max 5stars) //active star = hovered over/clicked
+    let changedRating;
+    if (newRating === rating) {
+      changedRating = null; //to remove star //idea is to nullify the active star; null=absence of value// couldnt use newRating -1 --> if 1-1 = 0 --> doesnt work in airtable; also not using starIndex idea where map numeric value to stars
+    } else {
+      changedRating = newRating;
+    }
+    setRating(changedRating);
+
     //HAVE TO PATCH TO AIRTABLE
     try {
-      await updateRating(recordID, newRating);
+      await updateRating(recordID, changedRating);
       console.log("Rating updated successfully in Airtable");
     } catch (error) {
       console.error("Error updating rating in Airtable:", error);
@@ -44,7 +54,7 @@ export default function RecipeRating({ initialRating, recordID }) {
           key={i}
           onMouseEnter={() => handleMouseEnter(i)}
           onMouseLeave={handleMouseLeave}
-          onClick={() => handleAddRating(i)}
+          onClick={() => handleEditRating(i)}
         >
           ⭐
         </span>
@@ -54,7 +64,7 @@ export default function RecipeRating({ initialRating, recordID }) {
       <>
         {minRating === 0 && (
           <span
-            onClick={() => handleAddRating(1)}
+            onClick={() => handleEditRating(1)}
             style={{ cursor: "pointer", marginLeft: "5px", fontWeight: "bold" }} // inline styling for add rating option
           >
             + Add Rating
