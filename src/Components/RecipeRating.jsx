@@ -20,10 +20,16 @@ export default function RecipeRating({ initialRating, recordID }) {
     //toggle remove/add star (max 5stars) // newRating = active star = hovered over/clicked
     let changedRating;
     if (newRating === rating) {
-      changedRating = null; //to remove star //idea is to nullify the active star; null=absence of value// couldnt use newRating -1 --> if 1-1 = 0 --> doesnt work in airtable; also not using starIndex idea where map numeric value to stars
+      changedRating = Math.max(0, newRating - 1); //to remove one star at a time //and no negative value
     } else {
       changedRating = newRating;
     }
+
+    //for 0 stars
+    if (changedRating === 0) {
+      changedRating = null; //idea is to nullify the active star; null=absence of value// couldnt use newRating -1 --> if 1-1 = 0 --> doesnt work in airtable;
+    }
+
     setRating(changedRating); //update local state
 
     //HAVE TO PATCH TO AIRTABLE
@@ -56,21 +62,22 @@ export default function RecipeRating({ initialRating, recordID }) {
       );
     }
     //adding plus sign (with hover effect)--> click --> add star (+1) //only if less than 5stars
-    stars.push(
-      <span
-        key="plus"
-        style={{
-          cursor: "pointer",
-          textShadow: hoverRating === 0 ? "0 0 8px gold" : "none",
-        }}
-        onMouseEnter={() => handleMouseEnter(0)}
-        onMouseLeave={handleMouseLeave}
-        onClick={() => handleEditRating(minRating + 1)}
-      >
-        {hoverRating === 0 || minRating === 5 ? "🌟" : "➕"}
-      </span>
-    );
-
+    if (minRating < 5) {
+      stars.push(
+        <span
+          key="plus"
+          style={{
+            cursor: "pointer",
+            textShadow: hoverRating === 0 ? "0 0 8px gold" : "none",
+          }}
+          onMouseEnter={() => handleMouseEnter(0)}
+          onMouseLeave={handleMouseLeave}
+          onClick={() => handleEditRating(minRating + 1)}
+        >
+          {hoverRating === 0 || minRating === 5 ? "🌟" : "➕"}
+        </span>
+      );
+    }
     return (
       <>
         {minRating === 0 && (
