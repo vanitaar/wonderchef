@@ -7,19 +7,27 @@ export default function Footer() {
         </p>
         <p>
           powered by{" "}
-          <a href="https://spoonacular.com/food-api">
+          <a
+            href="https://spoonacular.com/food-api"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <strong>Spoonacular API</strong>
           </a>
         </p>
         <p>
           styled using{" "}
-          <a href="https://bulma.io/">
+          <a href="https://bulma.io/" target="_blank" rel="noopener noreferrer">
             <strong>Bulma</strong>
           </a>
         </p>
         <p>
           logo designed by{" "}
-          <a href="https://www.flaticon.com/packs/cute-tomato-14330409">
+          <a
+            href="https://www.flaticon.com/packs/cute-tomato-14330409"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <strong>Flaticon</strong>
           </a>
         </p>
