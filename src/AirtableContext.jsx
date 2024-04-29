@@ -119,6 +119,31 @@ export default function AirtableContextProvider({ children }) {
     }
   }
 
+  //UPDATE RATING using patch
+  async function updateRating(recordID, newRating) {
+    try {
+      const response = await fetch(
+        `https://api.airtable.com/v0/appqsD3wc5xZBbGMa/MySavedRecipes/${recordID}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ fields: { Rating: newRating } }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update rating in Airtable");
+      }
+
+      console.log("Rating updated in Airtable successfully");
+    } catch (error) {
+      console.error("Error updating rating in Airtable:", error);
+    }
+  }
+
   return (
     <AirtableContext.Provider
       value={{
@@ -130,6 +155,7 @@ export default function AirtableContextProvider({ children }) {
         setIsBookmarked,
         delRecipe,
         loading,
+        updateRating,
       }}
     >
       {children}

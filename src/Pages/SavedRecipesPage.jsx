@@ -83,7 +83,10 @@ export default function SavedRecipesPage() {
                   </Link>
                 </small>
                 <Block />
-                <RecipeRating initialRating={recipe?.fields?.Rating} />
+                <RecipeRating
+                  initialRating={recipe?.fields?.Rating}
+                  recordID={recipe?.fields?.recordID}
+                />
               </Content>
             </Media.Item>
             <Media.Item align="right">
