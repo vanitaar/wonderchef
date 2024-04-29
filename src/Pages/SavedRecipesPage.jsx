@@ -11,6 +11,7 @@ import {
   Block,
 } from "react-bulma-components";
 import { Link } from "react-router-dom";
+import RecipeRating from "../Components/RecipeRating";
 
 export default function SavedRecipesPage() {
   const { savedRecipes, delRecipe, setSavedRecipes, apiUrl, loading } =
@@ -38,7 +39,7 @@ export default function SavedRecipesPage() {
 
   //delete button --> delRecipe
   function clickDelete(recordId) {
-    delRecipe(recordId); //hardcoded works //but immediate ? never click still works// need to check
+    delRecipe(recordId); //hardcoded works //but immediate ? never click still works// adjusted onClick function
   }
 
   if (loading) {
@@ -71,6 +72,7 @@ export default function SavedRecipesPage() {
                 rounded={true}
               />
             </Media.Item>
+
             <Media.Item align="center">
               <Content>
                 <h5>{recipe?.fields?.TItle}</h5>
@@ -80,6 +82,8 @@ export default function SavedRecipesPage() {
                     See Recipe Details
                   </Link>
                 </small>
+                <Block />
+                <RecipeRating rating={recipe?.fields?.Rating} />
               </Content>
             </Media.Item>
             <Media.Item align="right">
