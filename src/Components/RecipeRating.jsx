@@ -55,6 +55,22 @@ export default function RecipeRating({ initialRating, recordID }) {
         </span>
       );
     }
+    //adding plus sign (with hover effect)--> click --> add star (+1) //only if less than 5stars
+    stars.push(
+      <span
+        key="plus"
+        style={{
+          cursor: "pointer",
+          textShadow: hoverRating === 0 ? "0 0 8px gold" : "none",
+        }}
+        onMouseEnter={() => handleMouseEnter(0)}
+        onMouseLeave={handleMouseLeave}
+        onClick={() => handleEditRating(minRating + 1)}
+      >
+        {hoverRating === 0 || minRating === 5 ? "🌟" : "➕"}
+      </span>
+    );
+
     return (
       <>
         {minRating === 0 && (
@@ -62,7 +78,7 @@ export default function RecipeRating({ initialRating, recordID }) {
             onClick={() => handleEditRating(1)}
             style={{ cursor: "pointer", marginLeft: "5px", fontWeight: "bold" }} // inline styling for add rating option
           >
-            + Add Star
+            Add Star
           </span>
         )}
         {stars}
