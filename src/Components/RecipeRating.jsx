@@ -17,19 +17,14 @@ export default function RecipeRating({ initialRating, recordID }) {
   };
 
   const handleEditRating = async (newRating) => {
-    // console.log(newRating);
-    // setRating(newRating); //local state updated
-    // console.log("add rating");
-    // console.log(rating); //udefined --> probably need a useEffect? --> but will see if necessary //for now dw useEffect just for this log
-
-    //toggle remove/add star (max 5stars) //active star = hovered over/clicked
+    //toggle remove/add star (max 5stars) // newRating = active star = hovered over/clicked
     let changedRating;
     if (newRating === rating) {
       changedRating = null; //to remove star //idea is to nullify the active star; null=absence of value// couldnt use newRating -1 --> if 1-1 = 0 --> doesnt work in airtable; also not using starIndex idea where map numeric value to stars
     } else {
       changedRating = newRating;
     }
-    setRating(changedRating);
+    setRating(changedRating); //update local state
 
     //HAVE TO PATCH TO AIRTABLE
     try {
@@ -67,7 +62,7 @@ export default function RecipeRating({ initialRating, recordID }) {
             onClick={() => handleEditRating(1)}
             style={{ cursor: "pointer", marginLeft: "5px", fontWeight: "bold" }} // inline styling for add rating option
           >
-            + Add Rating
+            + Add Star
           </span>
         )}
         {stars}
