@@ -4,7 +4,7 @@
 
 This React-powered web app is your gateway to a world of delicious recipes. Whether you're a seasoned chef or a kitchen novice, we've got you covered. Ready to tantalize your taste buds? _click the image below_
 
-[![Screenshot of WonderChef Landing Page](/Project-2/project2-Recipes/images/screenshotLandingPage.png "Click me!")](https://react-wonderchef.vercel.app/)
+[![Screenshot of WonderChef Landing Page](/images/screenshotLandingPage.png "Click me!")](https://react-wonderchef.vercel.app/)
 
 ## Experience the magic of WonderChef ✨
 
